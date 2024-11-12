@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
+import PatientsList from './PatientsList'; // Import the PatientsList component
+import PatientDetails from './PatientDetails'; // Import the PatientDetails component
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Router>
+            <div>
+                <h1>Welcome to the Health App</h1>
+                <Routes>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/patients" element={<PatientsList />} /> {/* Route for patients list */}
+                    <Route path="/patients/:id/details" element={<PatientDetails />} /> {/* Route for patient details */}
+                    <Route path="/" element={<h2>Please go to /login or /register</h2>} />
+                </Routes>
+            </div>
+        </Router>
+    );
+};
 
 export default App;
+
+
+
