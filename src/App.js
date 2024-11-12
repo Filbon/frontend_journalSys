@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import PatientsList from './PatientsList'; // Import the PatientsList component
-import PatientDetails from './PatientDetails'; // Import the PatientDetails component
+import PatientDetails from './PatientDetails';
+import AddCondition from "./AddCondition"; // Import the AddCondition component
 
 const App = () => {
     return (
@@ -15,7 +16,10 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/patients" element={<PatientsList />} /> {/* Route for patients list */}
                     <Route path="/patients/:id/details" element={<PatientDetails />} /> {/* Route for patient details */}
-                    <Route path="/" element={<h2>Please go to /login or /register</h2>} />
+                    <Route path="/patients/:patientId/conditions/add" element={<AddCondition />} /> {/* Route for adding condition */}
+
+                    {/* Default route: redirect to /login if no other routes match */}
+                    <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </div>
         </Router>

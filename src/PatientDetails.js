@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const PatientDetails = () => {
     const { id } = useParams(); // Get patient ID from the URL parameter
@@ -10,12 +10,9 @@ const PatientDetails = () => {
 
     useEffect(() => {
         // Fetch patient details and conditions from the backend API
-        axios.get(`http://localhost:8080/api/patients/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('Token')}` // Attach token to the request header
-            }
-        })
+        axios.get(`http://localhost:8080/api/patients/${id}`)
             .then(response => {
+                console.log('Patient response:', response.data); // Log the response to inspect the structure
                 setPatient(response.data);
                 setLoading(false);
             })
@@ -25,6 +22,7 @@ const PatientDetails = () => {
                 setLoading(false);
             });
     }, [id]); // Re-fetch data if the patient ID changes
+
 
     if (loading) {
         return <div>Loading patient details...</div>;
@@ -66,3 +64,5 @@ const PatientDetails = () => {
 };
 
 export default PatientDetails;
+
+

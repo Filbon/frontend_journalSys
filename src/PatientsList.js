@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const PatientsList = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const userRole = localStorage.getItem('userRole');
+        console.log(localStorage.getItem('userRole'));
+
         // Fetch patients from the backend API
-        axios.get('http://localhost:8080/api/patients/GetPatients', {
+        axios.get("http://localhost:8080/api/patients/GetPatients", {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('Token')}` // Attach token to the request header
+                userRole: userRole  // Dynamically set role
             }
         })
             .then(response => {
@@ -33,7 +36,15 @@ const PatientsList = () => {
             <ul>
                 {patients.map(patient => (
                     <li key={patient.id}>
+                        {/* Link to patient's details page */}
                         <Link to={`/patients/${patient.id}/details`}>{patient.name}</Link>
+
+                        {/* Button to navigate to AddCondition page for the patient */}
+                        <button>
+                            <Link to={`/patients/${patient.id}/conditions/add`}>
+                                Add Condition
+                            </Link>
+                        </button>
                     </li>
                 ))}
             </ul>
@@ -42,6 +53,8 @@ const PatientsList = () => {
 };
 
 export default PatientsList;
+
+
 
 
 

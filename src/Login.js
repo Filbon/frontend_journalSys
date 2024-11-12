@@ -5,7 +5,6 @@ const Login = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [token, setToken] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -13,8 +12,12 @@ const Login = () => {
 
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', loginRequest);
-            setToken(response.data.split('Token: ')[1]); // Extract JWT from the response
-            localStorage.setItem('Token',token);
+
+            // Save role to localStorage
+            const { role } = response.data;
+            localStorage.setItem('userRole', role);
+            console.log(localStorage.getItem('userRole'));
+
             alert('Login successful');
         } catch (err) {
             setError('Invalid credentials. Please try again.');
@@ -25,7 +28,6 @@ const Login = () => {
         <div>
             <h2>Login</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {token && <p>JWT Token: {token}</p>}
             <form onSubmit={handleLogin}>
                 <div>
                     <label>User Name: </label>
@@ -52,3 +54,4 @@ const Login = () => {
 };
 
 export default Login;
+
