@@ -23,11 +23,16 @@ const AddCondition = () => {
 
         // Prepare the condition object to send
         const conditionData = { conditionName: name, description, status, diagnosisDate };
+        const userRole = localStorage.getItem('userRole')
 
         console.log("Sending condition data:", conditionData); // Log the data being sent
 
         // Make a POST request to add a condition
-        axios.post(`http://localhost:8080/api/patients/${patientId}/conditions`, conditionData)
+        axios.post(`http://localhost:8080/api/patients/${patientId}/conditions`, conditionData, {
+            headers: {
+                userRole: userRole  // Dynamically set role
+            }
+        })
             .then(response => {
                 console.log('Condition added successfully:', response.data);
                 // Navigate to the patient's detail page after success

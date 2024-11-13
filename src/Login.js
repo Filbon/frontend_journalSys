@@ -15,8 +15,9 @@ const Login = () => {
 
             // Save role to localStorage
             const { role } = response.data;
+            const { id }  = response.data;
             localStorage.setItem('userRole', role);
-            console.log(localStorage.getItem('userRole'));
+            localStorage.setItem('userId', id)
 
             alert('Login successful');
         } catch (err) {

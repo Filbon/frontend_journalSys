@@ -41,7 +41,7 @@ const PatientsList = () => {
 
                         {/* Button to navigate to AddCondition page for the patient */}
                         <button>
-                            <Link to={`/patients/${patient.id}/conditions/add`}>
+                            <Link to={`/patients/${patient.id}/conditions`}>
                                 Add Condition
                             </Link>
                         </button>

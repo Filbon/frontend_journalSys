@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const PatientDetails = () => {
-    const { id } = useParams(); // Get patient ID from the URL parameter
+const MyPage = () => {
     const [patient, setPatient] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const userRole = localStorage.getItem('userRole');
-        // Fetch patient details and conditions from the backend API
-        axios.get(`http://localhost:8080/api/patients/${id}/details`, {
+        const userId = localStorage.getItem('userId'); // Retrieve user ID from local storage
+        console.log(userId)
+
+        // Fetch patient details using userId from the header
+        axios.get("http://localhost:8080/api/patients/myPage", {
             headers: {
-                userRole: userRole  // Dynamically set role
+                userId: userId  // Set userId in the header
             }
         })
-
             .then(response => {
-                console.log('Patient response:', response.data); // Log the response to inspect the structure
+                console.log('Patient response:', response.data); // Log response for debugging
                 setPatient(response.data);
                 setLoading(false);
             })
@@ -27,8 +26,7 @@ const PatientDetails = () => {
                 setError('Failed to load patient details');
                 setLoading(false);
             });
-    }, [id]); // Re-fetch data if the patient ID changes
-
+    }, []);
 
     if (loading) {
         return <div>Loading patient details...</div>;
@@ -69,6 +67,4 @@ const PatientDetails = () => {
     );
 };
 
-export default PatientDetails;
-
-
+export default MyPage;
