@@ -45,6 +45,13 @@ const PatientsList = () => {
                                 Add Condition
                             </Link>
                         </button>
+
+                        {/* Message Button - Navigate to the SendMessagePage */}
+                        <button>
+                            <Link to={`/sendMessage/${patient.id}/${patient.name}`}>
+                                Send Message
+                            </Link>
+                        </button>
                     </li>
                 ))}
             </ul>
@@ -53,6 +60,7 @@ const PatientsList = () => {
 };
 
 export default PatientsList;
+
 
 
 

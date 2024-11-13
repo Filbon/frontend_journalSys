@@ -5,7 +5,10 @@ import Login from './Login';
 import PatientsList from './PatientsList'; // Import the PatientsList component
 import PatientDetails from './PatientDetails';
 import AddCondition from "./AddCondition";
-import MyPage from "./MyPage"; // Import the AddCondition component
+import MyPage from "./MyPage"; // Import the MyPage component
+import DoctorsAndStaff from './DoctorsAndStaffPage'; // New component for displaying doctors and staff
+import SendMessagePage from './SendMessagePage'; // New component for sending messages
+import MyConversations from './MyConversationsPage'; // New component for viewing conversations
 
 const App = () => {
     return (
@@ -15,10 +18,13 @@ const App = () => {
                 <Routes>
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/patients" element={<PatientsList />} /> {/* Route for patients list */}
-                    <Route path="/patients/:id/details" element={<PatientDetails />} /> {/* Route for patient details */}
-                    <Route path="/patients/:patientId/conditions" element={<AddCondition />} /> {/* Route for adding condition */}
-                    <Route path="/myPage" element={<MyPage/>}/>
+                    <Route path="/patients" element={<PatientsList />} />
+                    <Route path="/patients/:id/details" element={<PatientDetails />} />
+                    <Route path="/patients/:patientId/conditions" element={<AddCondition />} />
+                    <Route path="/myPage" element={<MyPage />} />
+                    <Route path="/doctorsAndStaff" element={<DoctorsAndStaff />} /> {/* New route for doctors/staff list */}
+                    <Route path="/SendMessage/:recipientId/:recipientName" element={<SendMessagePage />} /> {/* Route for sending messages */}
+                    <Route path="/myConversations" element={<MyConversations />} /> {/* Route for viewing conversations */}
 
                     {/* Default route: redirect to /login if no other routes match */}
                     <Route path="/" element={<Navigate to="/login" />} />
@@ -29,6 +35,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

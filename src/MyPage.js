@@ -7,7 +7,7 @@ const MyPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const userId = localStorage.getItem('userId'); // Retrieve user ID from local storage
+        const userId = localStorage.getItem('patientId'); // Retrieve user ID from local storage
         console.log(userId)
 
         // Fetch patient details using userId from the header

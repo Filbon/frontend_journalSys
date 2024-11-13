@@ -13,11 +13,14 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', loginRequest);
 
-            // Save role to localStorage
             const { role } = response.data;
-            const { id }  = response.data;
+            const { patientId }  = response.data;
+            const { userId } = response.data
+            const { userName } = response.data
             localStorage.setItem('userRole', role);
-            localStorage.setItem('userId', id)
+            localStorage.setItem('patientId', patientId)
+            localStorage.setItem('userId', userId)
+            localStorage.setItem('userName', userName)
 
             alert('Login successful');
         } catch (err) {
