@@ -11,7 +11,7 @@ const Login = () => {
         const loginRequest = { userName, password };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', loginRequest);
+            const response = await axios.post('http://localhost:8082/api/user/login', loginRequest);
 
             const { role } = response.data;
             const { patientId }  = response.data;

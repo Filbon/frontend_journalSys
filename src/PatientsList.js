@@ -11,7 +11,7 @@ const PatientsList = () => {
         console.log(localStorage.getItem('userRole'));
 
         // Fetch patients from the backend API
-        axios.get("http://localhost:8080/api/patients/GetPatients", {
+        axios.get("http://localhost:8081/api/userRole/patients/GetPatients", {
             headers: {
                 userRole: userRole  // Dynamically set role
             }

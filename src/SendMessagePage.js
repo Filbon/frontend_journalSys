@@ -23,7 +23,7 @@ const SendMessagePage = () => {
         };
 
         axios
-            .post("http://localhost:8080/api/patients/messages/send", message)
+            .post("http://localhost:8080/api/messages/send", message)
             .then((response) => {
                 console.log("Message sent:", response.data);
                 navigate("/myConversations"); // Redirect after message is sent

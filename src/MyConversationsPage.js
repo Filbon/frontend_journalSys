@@ -8,7 +8,7 @@ const MyConversationsPage = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/patients/messages/conversation/${userId}`)
+            .get(`http://localhost:8080/api/messages/conversation/${userId}`)
             .then((response) => {
                 setMessages(response.data);
             })
@@ -42,7 +42,7 @@ const MyConversationsPage = () => {
         };
 
         axios
-            .post("http://localhost:8080/api/patients/messages/send", reply)
+            .post("http://localhost:8080/api/messages/send", reply)
             .then((response) => {
                 console.log("Reply sent:", response.data);
                 // Optionally, you can refetch messages or add the new message to the state

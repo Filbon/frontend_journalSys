@@ -11,7 +11,7 @@ const MyPage = () => {
         console.log(userId)
 
         // Fetch patient details using userId from the header
-        axios.get("http://localhost:8080/api/patients/myPage", {
+        axios.get("http://localhost:8081/api/userRole/myPage", {
             headers: {
                 userId: userId  // Set userId in the header
             }

@@ -19,7 +19,7 @@ const Register = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/register', userDTO);
+            const response = await axios.post('http://localhost:8082/api/user/register', userDTO);
             alert(`User ${response.data.userName} registered successfully!`);
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Registration failed. Please check the details and try again.';

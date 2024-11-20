@@ -8,7 +8,7 @@ const DoctorsAndStaffPage = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/api/patients/users/doctorOrStaff")
+            .get("http://localhost:8082/api/user/users/doctorOrStaff")
             .then((response) => {
                 setUsers(response.data);
             })
