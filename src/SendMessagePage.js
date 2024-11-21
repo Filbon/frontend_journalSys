@@ -8,13 +8,11 @@ const SendMessagePage = () => {
     const senderName = localStorage.getItem("userName"); // Get the sender's name from localStorage
     const { recipientId, recipientName } = useParams(); // Get recipient's ID and name from URL params
     const navigate = useNavigate(); // For programmatic navigation
-    console.log(recipientName)
-    console.log(recipientId)
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const message = {
+        const messageDTO = {
             senderId,
             recipientId,
             senderName,
@@ -23,7 +21,7 @@ const SendMessagePage = () => {
         };
 
         axios
-            .post("http://localhost:8080/api/messages/send", message)
+            .post("http://localhost:8080/api/messages/send", messageDTO)
             .then((response) => {
                 console.log("Message sent:", response.data);
                 navigate("/myConversations"); // Redirect after message is sent

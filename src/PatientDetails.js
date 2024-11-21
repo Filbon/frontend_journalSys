@@ -51,9 +51,9 @@ const PatientDetails = () => {
                         <ul>
                             {patient.conditions.map(condition => (
                                 <li key={condition.id}>
-                                    <p><strong>Name:</strong> {condition.name}</p>
+                                    <p><strong>Name:</strong> {condition.conditionName}</p>
                                     <p><strong>Description:</strong> {condition.description}</p>
-                                    <p><strong>Diagnosis Date:</strong> {new Date(condition.diagnosis_date).toLocaleDateString()}</p>
+                                    <p><strong>Diagnosis Date:</strong> {new Date(condition.diagnosisDate).toLocaleDateString()}</p>
                                     <p><strong>Status:</strong> {condition.status}</p>
                                 </li>
                             ))}

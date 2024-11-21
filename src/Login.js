@@ -14,9 +14,9 @@ const Login = () => {
             const response = await axios.post('http://localhost:8082/api/user/login', loginRequest);
 
             const { role } = response.data;
-            const { patientId }  = response.data;
             const { userId } = response.data
             const { userName } = response.data
+            const { patientId }  = response.data;
             localStorage.setItem('userRole', role);
             localStorage.setItem('patientId', patientId)
             localStorage.setItem('userId', userId)

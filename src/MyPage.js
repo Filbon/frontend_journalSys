@@ -7,13 +7,12 @@ const MyPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const userId = localStorage.getItem('patientId'); // Retrieve user ID from local storage
-        console.log(userId)
+        const patientId = localStorage.getItem('patientId'); // Retrieve user ID from local storage
 
         // Fetch patient details using userId from the header
         axios.get("http://localhost:8081/api/userRole/myPage", {
             headers: {
-                userId: userId  // Set userId in the header
+                patientId: patientId  // Set userId in the header
             }
         })
             .then(response => {
@@ -49,9 +48,9 @@ const MyPage = () => {
                         <ul>
                             {patient.conditions.map(condition => (
                                 <li key={condition.id}>
-                                    <p><strong>Name:</strong> {condition.name}</p>
+                                    <p><strong>Name:</strong> {condition.conditionName}</p>
                                     <p><strong>Description:</strong> {condition.description}</p>
-                                    <p><strong>Diagnosis Date:</strong> {new Date(condition.diagnosis_date).toLocaleDateString()}</p>
+                                    <p><strong>Diagnosis Date:</strong> {new Date(condition.diagnosisDate).toLocaleDateString()}</p>
                                     <p><strong>Status:</strong> {condition.status}</p>
                                 </li>
                             ))}
