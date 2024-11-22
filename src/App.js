@@ -8,7 +8,8 @@ import AddCondition from "./AddCondition";
 import MyPage from "./MyPage"; // Import the MyPage component
 import DoctorsAndStaff from './DoctorsAndStaffPage'; // New component for displaying doctors and staff
 import SendMessagePage from './SendMessagePage'; // New component for sending messages
-import MyConversations from './MyConversationsPage'; // New component for viewing conversations
+import MyConversations from './MyConversationsPage';
+import AddEncounter from "./AddEncounter"; // New component for viewing conversations
 
 const App = () => {
     return (
@@ -25,8 +26,8 @@ const App = () => {
                     <Route path="/doctorsAndStaff" element={<DoctorsAndStaff />} /> {/* New route for doctors/staff list */}
                     <Route path="/SendMessage/:recipientId/:recipientName" element={<SendMessagePage />} /> {/* Route for sending messages */}
                     <Route path="/myConversations" element={<MyConversations />} /> {/* Route for viewing conversations */}
+                    <Route path="/practitioner/:patientId/encounters/add" element={<AddEncounter />} />
 
-                    {/* Default route: redirect to /login if no other routes match */}
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
             </div>

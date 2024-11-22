@@ -8,7 +8,7 @@ const PatientsList = () => {
 
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
-        console.log(localStorage.getItem('userRole'));
+
 
         // Fetch patients from the backend API
         axios.get("http://localhost:8081/api/userRole/patients/GetPatients", {
@@ -50,6 +50,11 @@ const PatientsList = () => {
                         <button>
                             <Link to={`/sendMessage/${patient.userId}/${patient.name}`}>
                                 Send Message
+                            </Link>
+                        </button>
+                        <button>
+                            <Link to={`/practitioner/${patient.id}/encounters/add`}>
+                                Add Encounter
                             </Link>
                         </button>
                     </li>

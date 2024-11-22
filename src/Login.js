@@ -17,10 +17,13 @@ const Login = () => {
             const { userId } = response.data
             const { userName } = response.data
             const { patientId }  = response.data;
+            const {practitionerId} = response.data;
             localStorage.setItem('userRole', role);
             localStorage.setItem('patientId', patientId)
             localStorage.setItem('userId', userId)
             localStorage.setItem('userName', userName)
+            localStorage.setItem('practitionerId', practitionerId)
+            console.log(practitionerId)
 
             alert('Login successful');
         } catch (err) {
