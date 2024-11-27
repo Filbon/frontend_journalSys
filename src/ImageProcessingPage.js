@@ -23,7 +23,7 @@ const ImageProcessingPage = () => {
         }
 
         const formData = new FormData();
-        formData.append('file', image); // Use the image state here
+        formData.append('file', image);
 
         try {
             const response = await axios.post('http://localhost:5000/api/images/upload', formData, {
@@ -34,31 +34,34 @@ const ImageProcessingPage = () => {
 
             console.log('Image uploaded successfully:', response.data);
 
-            // Assuming the backend returns the image path or URL
-            setUploadedImage(response.data.imagePath);
+            // Assuming the backend returns the filename as imagePath
+            setUploadedImage(response.data.filePath); // Save the filename or relative path
             setIsImageUploaded(true); // Set to true to display the uploaded image
         } catch (error) {
             console.error('Error uploading image:', error);
         }
     };
 
+
     // Add annotation function
     const handleAnnotateImage = async () => {
-        if (!annotation) {
-            alert('Please add an annotation.');
+        if (!uploadedImage || !annotation) {
+            alert('Please provide both an image and annotation.');
             return;
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/annotate', {
-                imagePath: uploadedImage,
-                annotation,
+            const response = await axios.post('http://localhost:5000/api/images/annotate', {
+                imageId: uploadedImage,
+                text: annotation,
             });
-            alert('Annotation added successfully');
+            console.log(response.data);
+            alert('Annotation added successfully!');
         } catch (error) {
             console.error('Error annotating image:', error);
         }
     };
+
 
     return (
         <div>
@@ -73,7 +76,7 @@ const ImageProcessingPage = () => {
             {isImageUploaded && (
                 <div>
                     <h2>Uploaded Image</h2>
-                    <img src={`http://localhost:5000/${uploadedImage}`} alt="Uploaded" style={{ maxWidth: '500px' }} />
+                    <img src={`http://localhost:5000/api/images/${uploadedImage}`} alt="Uploaded" style={{ maxWidth: '500px' }} />
                 </div>
             )}
 
