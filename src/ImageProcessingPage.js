@@ -10,6 +10,8 @@ const ImageProcessingPage = () => {
     const [newAnnotation, setNewAnnotation] = useState(null);
     const [drawingMode, setDrawingMode] = useState(false); // Toggle between annotation and drawing mode
     const [drawingData, setDrawingData] = useState([]); // Store drawing data (line segments)
+    const [imageWidth, setImageWidth] = useState(500); // Default width (change as needed)
+    const [imageHeight, setImageHeight] = useState(500); // Default height (change as needed)
     const canvasRef = useRef(null);
     const isDrawing = useRef(false);
 
@@ -23,6 +25,18 @@ const ImageProcessingPage = () => {
             setIsImageUploaded(true);
         }
     }, [location.search]);
+
+    useEffect(() => {
+        if (uploadedImage) {
+            // Create an Image object to get the real dimensions
+            const img = new Image();
+            img.onload = () => {
+                setImageWidth(img.width);
+                setImageHeight(img.height);
+            };
+            img.src = `http://localhost:5000/api/images/${uploadedImage}`;
+        }
+    }, [uploadedImage]);
 
     const handleFileChange = (event) => {
         setImage(event.target.files[0]);
@@ -181,31 +195,45 @@ const ImageProcessingPage = () => {
 
             {isImageUploaded && (
                 <div
-                    style={{ position: 'relative', display: 'inline-block' }}
+                    style={{
+                        position: 'relative',
+                        display: 'inline-block',
+                        width: imageWidth,
+                        height: imageHeight,
+                    }}
                     onClick={handleImageClick}
                 >
                     <h2>Uploaded Image</h2>
                     <img
                         src={`http://localhost:5000/api/images/${uploadedImage}`}
                         alt="Uploaded"
-                        style={{ maxWidth: '500px', maxHeight: '500px', cursor: 'pointer' }}
+                        style={{
+                            width: '100%',  // Ensures the image size matches the container size
+                            height: '100%', // Matches the height of the container
+                            display: 'block', // Remove any unwanted spacing
+                            cursor: 'pointer',
+                            position: 'absolute', // Aligns with the canvas
+                            top: 0,
+                            left: 0,
+                        }}
                     />
 
                     {/* Canvas overlay for drawing */}
                     <canvas
                         ref={canvasRef}
-                        width="500"
-                        height="500"
+                        width={imageWidth} // Matches the image width
+                        height={imageHeight} // Matches the image height
                         style={{
                             position: 'absolute',
                             top: 0,
                             left: 0,
                             pointerEvents: drawingMode ? 'auto' : 'none',
+                            zIndex: 1, // Ensures it overlays on top of the image
                         }}
                         onMouseDown={handleMouseDown}
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
-                    ></canvas>
+                    />
 
                     {/* Render existing annotations */}
                     {annotations.map((annotation, index) => (
@@ -220,6 +248,7 @@ const ImageProcessingPage = () => {
                                 padding: '2px 5px',
                                 borderRadius: '3px',
                                 fontSize: '12px',
+                                zIndex: 2, // Ensure annotations are on top of the canvas
                             }}
                         >
                             {annotation.text}
@@ -238,6 +267,7 @@ const ImageProcessingPage = () => {
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 gap: '5px',
+                                zIndex: 3, // Ensure input is above all other elements
                             }}
                         >
                             <input
@@ -260,6 +290,7 @@ const ImageProcessingPage = () => {
                     )}
                 </div>
             )}
+
         </div>
     );
 };
