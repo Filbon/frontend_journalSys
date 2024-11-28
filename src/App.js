@@ -10,7 +10,9 @@ import DoctorsAndStaff from './DoctorsAndStaffPage'; // New component for displa
 import SendMessagePage from './SendMessagePage'; // New component for sending messages
 import MyConversations from './MyConversationsPage';
 import AddEncounter from "./AddEncounter";
-import ImageProcessingPage from "./ImageProcessingPage"; // New component for viewing conversations
+import ImageProcessingPage from "./ImageProcessingPage"; // New component for image processing
+import ImageList from './ImageList'; // Import the ImageList component
+
 
 const App = () => {
     return (
@@ -24,10 +26,11 @@ const App = () => {
                     <Route path="/patients/:id/details" element={<PatientDetails />} />
                     <Route path="/patients/:patientId/conditions" element={<AddCondition />} />
                     <Route path="/myPage" element={<MyPage />} />
-                    <Route path="/doctorsAndStaff" element={<DoctorsAndStaff />} /> {/* New route for doctors/staff list */}
-                    <Route path="/SendMessage/:recipientId/:recipientName" element={<SendMessagePage />} /> {/* Route for sending messages */}
-                    <Route path="/myConversations" element={<MyConversations />} /> {/* Route for viewing conversations */}
+                    <Route path="/doctorsAndStaff" element={<DoctorsAndStaff />} />
+                    <Route path="/SendMessage/:recipientId/:recipientName" element={<SendMessagePage />} />
+                    <Route path="/myConversations" element={<MyConversations />} />
                     <Route path="/practitioner/:patientId/encounters/add" element={<AddEncounter />} />
+                    <Route path="/image-list" element={<ImageList />} />
                     <Route path="/image-processing" element={<ImageProcessingPage />} />
                     <Route path="/" element={<Navigate to="/login" />} />
                 </Routes>
