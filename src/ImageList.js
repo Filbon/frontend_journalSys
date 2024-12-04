@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ImageList = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch the list of images when the component mounts
+        // Simulated API call to check the user's role
+        const userRole = localStorage.getItem('userRole');
+
+        if (userRole !== 'DOCTOR') {
+            alert('Access denied. This page is for doctors only.');
+            navigate('/'); // Redirect to home or another page
+            return;
+        }
+
+        // Fetch the list of images if the role is DOCTOR
         axios.get('http://localhost:5000/api/images/images')
             .then(response => {
                 setImages(response.data.images);
@@ -18,7 +28,7 @@ const ImageList = () => {
                 setError('Failed to fetch images');
                 setLoading(false);
             });
-    }, []);
+    }, [navigate]);
 
     if (loading) {
         return <p>Loading images...</p>;
@@ -54,3 +64,4 @@ const ImageList = () => {
 };
 
 export default ImageList;
+

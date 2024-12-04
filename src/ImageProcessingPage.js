@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 const ImageProcessingPage = () => {
     const [image, setImage] = useState(null);
@@ -17,14 +17,23 @@ const ImageProcessingPage = () => {
 
     // Get the image filename from the URL parameter if it exists
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
+        const userRole = localStorage.getItem('userRole'); // Replace with actual role-checking logic
+
+        if (userRole !== 'DOCTOR') {
+            alert('Access denied. This page is for doctors only.');
+            navigate('/'); // Redirect to home or another page
+            return;
+        }
+
         const params = new URLSearchParams(location.search);
         const imageFromParam = params.get('image');
         if (imageFromParam) {
             setUploadedImage(imageFromParam);
             setIsImageUploaded(true);
         }
-    }, [location.search]);
+    }, [location.search, navigate]);
 
     useEffect(() => {
         if (uploadedImage) {

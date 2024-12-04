@@ -12,7 +12,7 @@ import MyConversations from './MyConversationsPage';
 import AddEncounter from "./AddEncounter";
 import ImageProcessingPage from "./ImageProcessingPage"; // New component for image processing
 import ImageList from './ImageList'; // Import the ImageList component
-
+import SearchPage from "./SearchPage";
 
 const App = () => {
     return (
@@ -33,6 +33,7 @@ const App = () => {
                     <Route path="/image-list" element={<ImageList />} />
                     <Route path="/image-processing" element={<ImageProcessingPage />} />
                     <Route path="/" element={<Navigate to="/login" />} />
+                    <Route path="/search" element={<SearchPage/>}/>
                 </Routes>
             </div>
         </Router>
