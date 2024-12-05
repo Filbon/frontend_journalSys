@@ -4,10 +4,10 @@ import axios from 'axios';
 const SearchPage = () => {
     const [searchType, setSearchType] = useState('');
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
     const [date, setDate] = useState('');
     const [reason, setReason] = useState('');
     const [outcome, setOutcome] = useState('');
+    const [results, setResults] = useState([]);
 
     // Log results when they change
     useEffect(() => {
@@ -26,13 +26,11 @@ const SearchPage = () => {
                         params: { conditionName: query },
                     });
                     break;
-                case 'practitionersByDate':
-                    response = await axios.get(`http://localhost:8083/search/practitioners/encounters/${date}`);
+                case 'patientsByPractitioner':
+                    response = await axios.get(`http://localhost:8083/search/${query}/patients`);
                     break;
-                case 'patientsByEncounter':
-                    response = await axios.get(`http://localhost:8083/search/patients-by-encounter`, {
-                        params: { reason, outcome, date },
-                    });
+                case 'practitionerEncountersByDate':
+                    response = await axios.get(`http://localhost:8083/search/${query}/encounters/date/${date}`);
                     break;
                 default:
                     alert('Please select a valid search type.');
@@ -57,13 +55,17 @@ const SearchPage = () => {
                     onChange={(e) => {
                         setSearchType(e.target.value);
                         setResults([]);
+                        setQuery('');
+                        setDate('');
+                        setReason('');
+                        setOutcome('');
                     }}
                 >
                     <option value="">-- Select --</option>
                     <option value="patientsByName">Search Patients by Name</option>
                     <option value="patientsByCondition">Search Patients by Condition</option>
-                    <option value="practitionersByDate">Search Practitioners by Encounter Date</option>
-                    <option value="patientsByEncounter">Search Patients by Encounter</option>
+                    <option value="patientsByPractitioner">Search Patients by Practitioner</option>
+                    <option value="practitionerEncountersByDate">Search Encounters by Practitioner and Date</option>
                 </select>
             </div>
 
@@ -91,35 +93,28 @@ const SearchPage = () => {
                 </div>
             )}
 
-            {searchType === 'practitionersByDate' && (
+            {searchType === 'patientsByPractitioner' && (
                 <div>
-                    <label htmlFor="encounterDate">Enter Encounter Date:</label>
+                    <label htmlFor="practitionerId">Enter Practitioner ID:</label>
                     <input
-                        id="encounterDate"
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
+                        id="practitionerId"
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
                 </div>
             )}
 
-            {searchType === 'patientsByEncounter' && (
+            {searchType === 'practitionerEncountersByDate' && (
                 <div>
-                    <label htmlFor="reason">Encounter Reason:</label>
+                    <label htmlFor="practitionerId">Enter Practitioner ID:</label>
                     <input
-                        id="reason"
+                        id="practitionerId"
                         type="text"
-                        value={reason}
-                        onChange={(e) => setReason(e.target.value)}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
-                    <label htmlFor="outcome">Encounter Outcome:</label>
-                    <input
-                        id="outcome"
-                        type="text"
-                        value={outcome}
-                        onChange={(e) => setOutcome(e.target.value)}
-                    />
-                    <label htmlFor="encounterDate">Encounter Date:</label>
+                    <label htmlFor="encounterDate">Enter Encounter Date:</label>
                     <input
                         id="encounterDate"
                         type="date"
@@ -137,8 +132,9 @@ const SearchPage = () => {
                     <ul>
                         {results.map((result, index) => (
                             <li key={index}>
-                                {/* Ensure you display specific properties or stringify the whole object */}
-                                Name: {result.name} {/* Replace `name` with the actual property you want to display */}
+                                {result.name ? `Name: ${result.name}` : ''}
+                                {result.date ? ` | Date: ${result.date}` : ''}
+                                {result.specialization ? ` | Specialization: ${result.specialization}` : ''}
                             </li>
                         ))}
                     </ul>
@@ -146,10 +142,10 @@ const SearchPage = () => {
                     <p>No results found.</p>
                 )}
             </div>
-
         </div>
     );
 };
 
 export default SearchPage;
+
 
