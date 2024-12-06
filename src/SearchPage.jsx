@@ -132,9 +132,12 @@ const SearchPage = () => {
                     <ul>
                         {results.map((result, index) => (
                             <li key={index}>
-                                {result.name ? `Name: ${result.name}` : ''}
-                                {result.date ? ` | Date: ${result.date}` : ''}
-                                {result.specialization ? ` | Specialization: ${result.specialization}` : ''}
+                                {result.name && <div>Name: {result.name}</div>}
+                                {result.patientName && <div>Patient Name: {result.patientName}</div>}
+                                {result.birthdate && <div>Birthdate: {result.birthdate}</div>}
+                                {result.date && <div>Date: {result.date}</div>}
+                                {result.reason && <div>Reason: {result.reason}</div>}
+                                {result.outcome && <div>Outcome: {result.outcome}</div>}
                             </li>
                         ))}
                     </ul>
@@ -142,6 +145,7 @@ const SearchPage = () => {
                     <p>No results found.</p>
                 )}
             </div>
+
         </div>
     );
 };
