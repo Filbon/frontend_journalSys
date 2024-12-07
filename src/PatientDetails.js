@@ -11,7 +11,7 @@ const PatientDetails = () => {
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
         // Fetch patient details and conditions from the backend API
-        axios.get(`http://localhost:8081/api/userRole/patients/${id}/details`, {
+        axios.get(`http://kubernetes.docker.internal:30081/api/userRole/patients/${id}/details`, {
             headers: {
                 userRole: userRole  // Dynamically set role
             }

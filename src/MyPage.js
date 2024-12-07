@@ -10,7 +10,7 @@ const MyPage = () => {
         const patientId = localStorage.getItem('patientId'); // Retrieve user ID from local storage
 
         // Fetch patient details using userId from the header
-        axios.get("http://localhost:8081/api/userRole/myPage", {
+        axios.get("http://kubernetes.docker.internal:30081/api/userRole/myPage", {
             headers: {
                 patientId: patientId  // Set userId in the header
             }

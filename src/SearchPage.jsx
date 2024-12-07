@@ -19,18 +19,18 @@ const SearchPage = () => {
             let response;
             switch (searchType) {
                 case 'patientsByName':
-                    response = await axios.get(`http://localhost:8083/search/patients/name/${query}`);
+                    response = await axios.get(`http://kubernetes.docker.internal:30083/search/patients/name/${query}`);
                     break;
                 case 'patientsByCondition':
-                    response = await axios.get(`http://localhost:8083/search/patients/by-condition`, {
+                    response = await axios.get(`http://kubernetes.docker.internal:30083/search/patients/by-condition`, {
                         params: { conditionName: query },
                     });
                     break;
                 case 'patientsByPractitioner':
-                    response = await axios.get(`http://localhost:8083/search/${query}/patients`);
+                    response = await axios.get(`http://kubernetes.docker.internal:30083/search/${query}/patients`);
                     break;
                 case 'practitionerEncountersByDate':
-                    response = await axios.get(`http://localhost:8083/search/${query}/encounters/date/${date}`);
+                    response = await axios.get(`http://kubernetes.docker.internal:30083/search/${query}/encounters/date/${date}`);
                     break;
                 default:
                     alert('Please select a valid search type.');

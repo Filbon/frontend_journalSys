@@ -38,7 +38,7 @@ const AddEncounter = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8081/api/userRole/practitioner/${practitionerId}/encounters`,
+                `http://kubernetes.docker.internal:30081/api/userRole/practitioner/${practitionerId}/encounters`,
                 encounterData,
                 {
                     headers: {

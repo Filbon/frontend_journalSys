@@ -11,7 +11,7 @@ const PatientsList = () => {
 
 
         // Fetch patients from the backend API
-        axios.get("http://localhost:8081/api/userRole/patients/GetPatients", {
+        axios.get("http://kubernetes.docker.internal:30081/api/userRole/patients/GetPatients", {
             headers: {
                 userRole: userRole  // Dynamically set role
             }
