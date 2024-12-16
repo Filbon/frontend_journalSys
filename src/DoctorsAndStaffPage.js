@@ -8,7 +8,7 @@ const DoctorsAndStaffPage = () => {
 
     useEffect(() => {
         axios
-            .get("http://kubernetes.docker.internal:30082/api/user/users/doctorOrStaff")
+            .get("https://userservice.app.cloud.cbh.kth.se//api/user/users/doctorOrStaff")
             .then((response) => {
                 setUsers(response.data);
             })

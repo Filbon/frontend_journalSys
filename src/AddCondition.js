@@ -28,7 +28,7 @@ const AddCondition = () => {
         console.log("Sending condition data:", conditionData); // Log the data being sent
 
         // Make a POST request to add a condition
-        axios.post(`http://kubernetes.docker.internal:30081/api/userRole/patients/${patientId}/conditions`, conditionData, {
+        axios.post(`https://userroleservice.app.cloud.cbh.kth.se/api/userRole/patients/${patientId}/conditions`, conditionData, {
             headers: {
                 userRole: userRole  // Dynamically set role
             }

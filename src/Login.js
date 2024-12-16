@@ -11,7 +11,7 @@ const Login = () => {
         const loginRequest = { userName, password };
 
         try {
-            const response = await axios.post('http://kubernetes.docker.internal:30082/api/user/login', loginRequest);
+            const response = await axios.post('https://userservice.app.cloud.cbh.kth.se//api/user/login', loginRequest);
 
             const { role } = response.data;
             const { userId } = response.data
