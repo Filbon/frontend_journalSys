@@ -43,7 +43,7 @@ const ImageProcessingPage = () => {
                 setImageWidth(img.width);
                 setImageHeight(img.height);
             };
-            img.src = `http://kubernetes.docker.internal:30050/api/images/${uploadedImage}`;
+            img.src = `https://image-processing-backend.app.cloud.cbh.kth.se/api/images/${uploadedImage}`;
         }
     }, [uploadedImage]);
 
@@ -62,7 +62,7 @@ const ImageProcessingPage = () => {
         formData.append('file', image);
 
         try {
-            const response = await axios.post('http://kubernetes.docker.internal:30050/api/images/upload', formData, {
+            const response = await axios.post('https://image-processing-backend.app.cloud.cbh.kth.se/api/images/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -98,7 +98,7 @@ const ImageProcessingPage = () => {
         }
 
         try {
-            const response = await axios.post('http://kubernetes.docker.internal:30050/api/images/annotate', {
+            const response = await axios.post('https://image-processing-backend.app.cloud.cbh.kth.se/api/images/annotate', {
                 imageId: uploadedImage,
                 text: newAnnotation.text,
                 x: newAnnotation.x,
@@ -175,7 +175,7 @@ const ImageProcessingPage = () => {
         try {
             const base64Drawing = canvasRef.current.toDataURL('image/png').split(',')[1]; // Convert to base64 format
 
-            const response = await axios.post('http://kubernetes.docker.internal:30050/api/images/draw', {
+            const response = await axios.post('https://image-processing-backend.app.cloud.cbh.kth.se/api/images/draw', {
                 imageId: uploadedImage,
                 drawingData: base64Drawing, // Send as base64-encoded string
             });
@@ -214,7 +214,7 @@ const ImageProcessingPage = () => {
                 >
                     <h2>Uploaded Image</h2>
                     <img
-                        src={`http://kubernetes.docker.internal:30050/api/images/${uploadedImage}`}
+                        src={`https://image-processing-backend.app.cloud.cbh.kth.se/api/images/${uploadedImage}`}
                         alt="Uploaded"
                         style={{
                             width: '100%',  // Ensures the image size matches the container size

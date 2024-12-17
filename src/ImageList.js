@@ -19,7 +19,7 @@ const ImageList = () => {
         }
 
         // Fetch the list of images if the role is DOCTOR
-        axios.get('http://kubernetes.docker.internal:30050/api/images/images')
+        axios.get('https://image-processing-backend.app.cloud.cbh.kth.se/api/images/images')
             .then(response => {
                 setImages(response.data.images);
                 setLoading(false);
