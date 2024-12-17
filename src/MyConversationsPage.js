@@ -42,7 +42,7 @@ const MyConversationsPage = () => {
         };
 
         axios
-            .post("http://kubernetes.docker.internal:30080/api/messages/send", reply)
+            .post("https://messageservice-journalsys.app.cloud.cbh.kth.se/api/messages/send", reply)
             .then((response) => {
                 console.log("Reply sent:", response.data);
                 // Optionally, you can refetch messages or add the new message to the state
