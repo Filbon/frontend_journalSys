@@ -21,7 +21,7 @@ const SendMessagePage = () => {
         };
 
         axios
-            .post("http://kubernetes.docker.internal:30080/api/messages/send", messageDTO)
+            .post("https://messageservice-journalsys.app.cloud.cbh.kth.se/api/messages/send", messageDTO)
             .then((response) => {
                 console.log("Message sent:", response.data);
                 navigate("/myConversations"); // Redirect after message is sent

@@ -8,7 +8,7 @@ const MyConversationsPage = () => {
 
     useEffect(() => {
         axios
-            .get(`http://kubernetes.docker.internal:30080/api/messages/conversation/${userId}`)
+            .get(`https://messageservice-journalsys.app.cloud.cbh.kth.se/api/messages/conversation/${userId}`)
             .then((response) => {
                 setMessages(response.data);
             })
