@@ -16,21 +16,48 @@ const SearchPage = () => {
 
     const handleSearch = async () => {
         try {
+            // Retrieve the token from local storage, session storage, or a state management library
+            const token = localStorage.getItem('jwtToken'); // Adjust based on where you're storing the token
+
+            if (!token) {
+                alert('You are not authenticated. Please log in.');
+                return;
+            }
+
             let response;
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
             switch (searchType) {
                 case 'patientsByName':
-                    response = await axios.get(`https://searchservice-journalsys.app.cloud.cbh.kth.se/search/patients/name/${query}`);
+                    response = await axios.get(
+                        `https://searchservice-journalsys.app.cloud.cbh.kth.se/search/patients/name/${query}`,
+                        config
+                    );
                     break;
                 case 'patientsByCondition':
-                    response = await axios.get(`https://searchservice-journalsys.app.cloud.cbh.kth.se/search/patients/by-condition`, {
-                        params: { conditionName: query },
-                    });
+                    response = await axios.get(
+                        `https://searchservice-journalsys.app.cloud.cbh.kth.se/search/patients/by-condition`,
+                        {
+                            ...config,
+                            params: { conditionName: query },
+                        }
+                    );
                     break;
                 case 'patientsByPractitioner':
-                    response = await axios.get(`https://searchservice-journalsys.app.cloud.cbh.kth.se/search/${query}/patients`);
+                    response = await axios.get(
+                        `https://searchservice-journalsys.app.cloud.cbh.kth.se/search/${query}/patients`,
+                        config
+                    );
                     break;
                 case 'practitionerEncountersByDate':
-                    response = await axios.get(`https://searchservice-journalsys.app.cloud.cbh.kth.se/search/${query}/encounters/date/${date}`);
+                    response = await axios.get(
+                        `https://searchservice-journalsys.app.cloud.cbh.kth.se/search/${query}/encounters/date/${date}`,
+                        config
+                    );
                     break;
                 default:
                     alert('Please select a valid search type.');
@@ -43,6 +70,7 @@ const SearchPage = () => {
             alert('Failed to fetch search results.');
         }
     };
+
 
     return (
         <div>

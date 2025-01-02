@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import keycloak from "./Keycloak";
 
 const PatientsList = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
-
+        console.log(localStorage.getItem('jwtToken'))
 
         // Fetch patients from the backend API
         axios.get("https://userroleservice.app.cloud.cbh.kth.se/api/userRole/patients/GetPatients", {
             headers: {
-                userRole: userRole  // Dynamically set role
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             }
         })
             .then(response => {
@@ -48,7 +48,7 @@ const PatientsList = () => {
 
                         {/* Message Button - Navigate to the SendMessagePage */}
                         <button>
-                            <Link to={`/sendMessage/${patient.userId}/${patient.name}`}>
+                            <Link to={`/sendMessage/${patient.user.id}/${patient.name}`}>
                                 Send Message
                             </Link>
                         </button>

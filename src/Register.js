@@ -11,6 +11,7 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+
         const userDTO = {
             userName,
             password,
@@ -19,14 +20,59 @@ const Register = () => {
         };
 
         try {
-            const response = await axios.post('https://userservice.app.cloud.cbh.kth.se/api/user/register', userDTO);
+            // Step 1: Authenticate with Keycloak
+            const keycloakAuthResponse = await axios.post(
+                'http://localhost:8080/realms/master/protocol/openid-connect/token',
+                new URLSearchParams({
+                    client_id: 'user-service',
+                    client_secret: 'twO4q2kzljG9QUFkRbol1YfpX2aL5rs1',
+                    grant_type: 'client_credentials',
+                }),
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+            );
+
+            const keycloakToken = keycloakAuthResponse.data.access_token;
+
+            // Step 2: Create the user in Keycloak
+            const keycloakUser = {
+                username: userName,
+                enabled: true,
+                credentials: [
+                    {
+                        type: 'password',
+                        value: password,
+                        temporary: false,
+                    },
+                ],
+                realmRoles: [role],
+            };
+
+            await axios.post(
+                'http://localhost:8080/admin/realms/my-realm/users',
+                keycloakUser,
+                {
+                    headers: {
+                        Authorization: `Bearer ${keycloakToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            // Step 3: Register the user in your backend
+            const response = await axios.post(
+                'http://localhost:8082/api/user/register',
+                userDTO
+            );
+
             alert(`User ${response.data.userName} registered successfully!`);
         } catch (err) {
-            const errorMsg = err.response?.data?.message || 'Registration failed. Please check the details and try again.';
+            const errorMsg =
+                err.response?.data?.message ||
+                'Registration failed. Please check the details and try again.';
             setError(errorMsg);
         }
-
     };
+
 
     return (
         <div>

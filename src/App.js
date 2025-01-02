@@ -13,11 +13,15 @@ import AddEncounter from "./AddEncounter";
 import ImageProcessingPage from "./ImageProcessingPage"; // New component for image processing
 import ImageList from './ImageList'; // Import the ImageList component
 import SearchPage from "./SearchPage";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import keycloak from "./Keycloak";
+import Nav from "./Nav";
 
 const App = () => {
     return (
         <Router>
             <div>
+                <ReactKeycloakProvider authClient={keycloak}>
                 <h1>Welcome to the Health App</h1>
                 <Routes>
                     <Route path="/register" element={<Register />} />
@@ -32,9 +36,10 @@ const App = () => {
                     <Route path="/practitioner/:patientId/encounters/add" element={<AddEncounter />} />
                     <Route path="/image-list" element={<ImageList />} />
                     <Route path="/image-processing" element={<ImageProcessingPage />} />
-                    <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/search" element={<SearchPage/>}/>
+                    <Route path="/keycloak" element={<Nav/>}/>
                 </Routes>
+                </ReactKeycloakProvider>
             </div>
         </Router>
     );
