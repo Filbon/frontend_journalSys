@@ -48,7 +48,7 @@ const PatientsList = () => {
 
                         {/* Message Button - Navigate to the SendMessagePage */}
                         <button>
-                            <Link to={`/sendMessage/${patient.user.id}/${patient.name}`}>
+                            <Link to={`/sendMessage/${patient.id}/${patient.name}`}>
                                 Send Message
                             </Link>
                         </button>
