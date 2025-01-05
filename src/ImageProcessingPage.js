@@ -19,13 +19,6 @@ const ImageProcessingPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
-        const userRole = localStorage.getItem('userRole'); // Replace with actual role-checking logic
-
-        if (userRole !== 'DOCTOR') {
-            alert('Access denied. This page is for doctors only.');
-            navigate('/'); // Redirect to home or another page
-            return;
-        }
 
         const params = new URLSearchParams(location.search);
         const imageFromParam = params.get('image');
@@ -65,6 +58,7 @@ const ImageProcessingPage = () => {
             const response = await axios.post('https://image-processing-backend.app.cloud.cbh.kth.se/api/images/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
                 },
             });
             setUploadedImage(response.data.filePath);

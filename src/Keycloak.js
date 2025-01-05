@@ -1,8 +1,8 @@
 import Keycloak from "keycloak-js";
 
 const keycloak = new Keycloak({
-    url: "https://kc-service-deploy.app.cloud.cbh.kth.se/",
-    realm: "master",
+    url: "http://localhost:8080/",
+    realm: "my-realm",
     clientId: "frontend-client",
 });
 
